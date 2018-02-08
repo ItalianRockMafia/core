@@ -1,0 +1,15 @@
+.topspacer {
+	padding-top: 70px;
+}
+
+.righticon {
+	float: right;
+}
+
+.clear {
+	clear: both;
+}
+
+a {
+	text-decoration: none;
+}
