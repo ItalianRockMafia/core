@@ -35,6 +35,8 @@
 		<main role="main">
 			<div class="container">
 
+			<a href="settings.php">git no nüt, druck da</a>
+
 <?php
 
 
