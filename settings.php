@@ -72,7 +72,7 @@ if ($tg_user !== false) {
   </div>
   <div class="form-group mx-sm-3 mb-2">
     <label for="station" class="sr-only">Station</label>
-		<select class="form-control" id="station">
+		<select class="form-control" name="station">
   		<option value="<?php echo $userStation["stationID"];?>"><?php echo $userStation["station"]; ?></option>
 			<?php
 				foreach($stations["stations"] as $station){
