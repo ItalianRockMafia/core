@@ -2,7 +2,7 @@
 
 
 function checkIrmUser($telegramID){
-	$users = json_decode(getCall("https://api.italianrockmafia.ch/api.php/users?transform=1"), true);
+	$users = json_decode(getCall($config->api_url . "users?transform=1"), true);
 	
 	$userids = array();
 	foreach($users["users"] as $user){
