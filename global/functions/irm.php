@@ -7,6 +7,7 @@ function checkIrmUser($telegramID){
 	$userids = array();
 	foreach($users["users"] as $user){
 	array_push($userids, $user["telegramID"]);
+
 	}
 	$tg_user = getTelegramUserData();
 

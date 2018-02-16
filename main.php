@@ -49,9 +49,15 @@ if ($tg_user !== false) {
 <div class="topspacer"></div>
 <main role="main">
 	<div class="container">
+	
 				<div class="list-group">
 				<?php
 					$isIRM = checkIrmUser($tgID);
+					if(!$isIRM){
+						echo '<a href="checker.php" class="list-group-item list-group-item-action">Register in IRM Database</a>';
+					} else {
+						echo '<a href="checker.php" class="list-group-item list-group-item-action">Check status in IRM Database</a>';
+					}
 
 				?>
   					<a href="settings.php" class="list-group-item list-group-item-action">Settings</a>
