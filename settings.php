@@ -42,6 +42,8 @@ session_start();
 
 require 'global/functions/apicalls.php';
 require 'global/functions/telegram.php';
+$config = require "config.php";
+
 
 $tg_user = getTelegramUserData();
 
@@ -56,8 +58,8 @@ if ($tg_user !== false) {
 	$_SESSION['lastname'] = $tg_user["last_name"];
 	$_SESSION['username'] = $tg_user["username"];
 
-	$userStations = json_decode(getCall("https://api.italianrockmafia.ch/api.php/userStation?transform=1&filter=telegramID,eq," . $tg_user["id"]),true);
-	$stations =  json_decode(getCall("https://api.italianrockmafia.ch/api.php/stations?transform=1"), true);
+	$userStations = json_decode(getCall($config->api_url . "userStation?transform=1&filter=telegramID,eq," . $tg_user["id"]),true);
+	$stations =  json_decode(getCall($config->api_url . "stations?transform=1"), true);
 
 	if(empty($userStations["userStation"])){
 		echo '<div class="alert alert-danger" role="alert">
