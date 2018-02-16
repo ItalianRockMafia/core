@@ -1,4 +1,6 @@
 <?php
+session_start();
+
 require 'global/functions/telegram.php';
 require 'global/functions/apicalls.php';
 

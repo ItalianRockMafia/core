@@ -1,4 +1,6 @@
 <?php
+session_start();
+
 
 define('BOT_TOKEN', '179948695:AAHAjQ-pgJE8_KUx9JU1bwJmuz1I5T5AeTA'); // place bot token of your bot here
 
