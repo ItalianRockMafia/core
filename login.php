@@ -56,11 +56,18 @@ HTML;
   echo <<<HTML
 
 <center>{$html}
+
+
+</center>
+<div class="topspacer"></div>
+
+<center>
 <a href="https://github.com/ItalianRockMafia/core/blob/master/README.md"><button type="button" class="btn btn-success">Hilfe</button></a>
 <a href="https://github.com/ItalianRockMafia/core/issues/"><button type="button" class="btn btn-success">Bekannte Bugs</button></a>
 <a href="https://github.com/ItalianRockMafia/core/issues/new/"><button type="button" class="btn btn-danger">Neuer Bug erfassen</button></a>
+</center>
 
-</center></div></div></body>
+</div></div></body>
 </html>
 HTML;
 
