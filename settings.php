@@ -51,6 +51,11 @@ if ($tg_user !== false) {
 	$lastname = $tg_user["last_name"];
 	$username = $tg_user["username"];
 
+	$_SESSION['tgID'] = $tg_user["id"];
+	$_SESSION['firstname'] = $tg_user["first_name"];
+	$_SESSION['lastname'] = $tg_user["last_name"];
+	$_SESSION['username'] = $tg_user["username"];
+
 	$userStations = json_decode(getCall("https://api.italianrockmafia.ch/api.php/userStation?transform=1&filter=telegramID,eq," . $tg_user["id"]),true);
 	$stations =  json_decode(getCall("https://api.italianrockmafia.ch/api.php/stations?transform=1"), true);
 
