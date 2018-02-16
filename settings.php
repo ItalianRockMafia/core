@@ -102,7 +102,7 @@ if ($tg_user !== false) {
 <form method="POST" action="stationmgmt.php?addstation=1" class="">
 <div class="form-group">
     
-    <input type="text" class="form-control" id="newStation" aria-describedby="stationHelp" placeholder="Station Name">
+    <input type="text" class="form-control" name="newStation" aria-describedby="stationHelp" placeholder="Station Name">
     <small id="stationHelp" class="form-text text-muted">Please provide the name, as it is in the SBB mobile app.</small>
   </div>
 	<button type="submit" class="btn btn-success mb-2">Add Station</button>

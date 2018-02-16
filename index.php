@@ -5,7 +5,7 @@ require 'global/functions/telegram.php';
 require 'global/functions/apicalls.php';
 $config = require "config.php";
 
-$users = json_decode(getCall("users?transform=1"), true);
+$users = json_decode(getCall($config->api_url . "users?transform=1"), true);
 
 $userids = array();
 foreach($users["users"] as $user){
@@ -18,7 +18,6 @@ if ($tg_user !== false && in_array($tg_user["id"], $userids)) {
 
 }elseif ($tg_user !== false && !in_array($tg_user["id"], $userids)) {
 	header('Location: public.html');
-
 }else{
 	header('Location: login.php');
 	}
