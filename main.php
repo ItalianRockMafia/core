@@ -8,7 +8,7 @@ session_start();
  	   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 			<link rel="stylesheet" href="global/main.css">
 		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
-		<title>IRM - Main</title>
+		<title>IRM - Settings</title>
 	</head>
 	<body>
 
@@ -20,10 +20,10 @@ session_start();
 	  </button>
 	<div class="collapse navbar-collapse" id="navbarSupportedContent">
 		<ul class="navbar-nav mr-auto">
-		<li class="nav-item">
-        				<a class="nav-link" href="#">Home  <span class="sr-only">(current)</span></a>
+		<li class="nav-item active">
+        				<a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
       				</li>
-			  <li class="nav-item active">
+			  <li class="nav-item">
 				<a class="nav-link" href="settings.php">Settings</a>
 			  </li>
 				</ul>
@@ -37,7 +37,6 @@ session_start();
 <div class="topspacer"></div>
 <main role="main">
 	<div class="container">
-
 				<div class="list-group">
   					<a href="settings.php" class="list-group-item list-group-item-action">Settings</a>
 				</div>
