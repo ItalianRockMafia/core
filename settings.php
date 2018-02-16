@@ -70,6 +70,7 @@ if ($tg_user !== false) {
 	echo '<h2>Your username is: <a href="https://t.me/' . $username . '" target="_blank">@' . $username . '</a>.</h2>';
 
 	foreach($userStations["userStation"] as $userStation){
+		$_SESSION['irmID'] = $userStation['userID'];
 ?>
 <div class="topspacer"></div>
 <h3>Select your station</h3>

@@ -5,6 +5,7 @@ session_start();
 if(isset($_GET['upatestation'])){
 
 	$stationID = $_POST['station'];
+	$userID = $_SESSION['userID'];
 
 
 }
