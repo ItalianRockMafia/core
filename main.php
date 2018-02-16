@@ -35,7 +35,9 @@
 		<main role="main">
 			<div class="container">
 
-			<a href="settings.php">git no nüt, druck da</a>
+				<div class="list-group">
+  					<a href="settings.php" class="list-group-item list-group-item-action">Settings</a>
+				</div>
 
 <?php
 
