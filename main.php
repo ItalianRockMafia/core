@@ -1,5 +1,12 @@
 <?php
 session_start();
+$config = require 'config.php';
+require 'global/functions/apicalls.php';
+require 'global/functions/telegram.php';
+require 'global/functions/irm.php';
+
+$tg_user = getTelegramUserData();
+if ($tg_user !== false) {
 ?>
 <!doctype html>
 <html>
@@ -41,10 +48,18 @@ session_start();
   					<a href="settings.php" class="list-group-item list-group-item-action">Settings</a>
 				</div>
 
+
+
 <?php
 
 
-
+} else {
+	echo '
+	<div class="alert alert-danger" role="alert">
+	<strong>Error.</strong> You need to login first
+  </div>
+';
+}
 ?>
 			</div>
 		</main>

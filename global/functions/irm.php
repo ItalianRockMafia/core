@@ -1,7 +1,5 @@
 <?php
 
-require 'apicalls.php';
-require 'telegram.php';
 
 function checkIrmUser($telegramID){
 	$users = json_decode(getCall("https://api.italianrockmafia.ch/api.php/users?transform=1"), true);
