@@ -6,6 +6,11 @@ require 'global/functions/telegram.php';
 require 'global/functions/irm.php';
 
 $tg_user = getTelegramUserData();
+
+$tgID = $tg_user["id"];
+$firstname = $tg_user["first_name"];
+$lastname = $tg_user["last_name"];
+$username = $tg_user["username"];
 if ($tg_user !== false) {
 ?>
 <!doctype html>
@@ -45,6 +50,10 @@ if ($tg_user !== false) {
 <main role="main">
 	<div class="container">
 				<div class="list-group">
+				<?php
+					$isIRM = checkIrmUser($tgID);
+
+				?>
   					<a href="settings.php" class="list-group-item list-group-item-action">Settings</a>
 				</div>
 

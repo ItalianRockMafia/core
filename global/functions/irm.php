@@ -21,7 +21,7 @@ function checkIrmUser($telegramID){
 		die();
 		}
 	
-	
+	return $result;
 
 
 }
