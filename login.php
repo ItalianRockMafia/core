@@ -55,7 +55,12 @@ HTML;
 
   echo <<<HTML
 
-<center>{$html}</center></div></div></body>
+<center>{$html}
+<a href="https://github.com/ItalianRockMafia/core/blob/master/README.md"><button type="button" class="btn btn-success">Hilfe</button></a>
+<a href="https://github.com/ItalianRockMafia/core/issues/"><button type="button" class="btn btn-success">Bekannte Bugs</button></a>
+<a href="https://github.com/ItalianRockMafia/core/issues/new/"><button type="button" class="btn btn-danger">Neuer Bug erfassen</button></a>
+
+</center></div></div></body>
 </html>
 HTML;
 
