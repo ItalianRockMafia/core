@@ -39,6 +39,9 @@ if ($tg_user !== false) {
 			  <li class="nav-item">
 				<a class="nav-link" href="settings.php">Settings</a>
 			  </li>
+				<li class="nav-item">
+        	<a class="nav-link" href="https://italianrockmafia.ch/meetup">Events</a>
+      	</li>
 				</ul>
 				<ul class="nav navbar-nav navbar-right">
 				<li class="nav-item">
@@ -62,6 +65,7 @@ if ($tg_user !== false) {
 
 				?>
   					<a href="settings.php" class="list-group-item list-group-item-action">Settings</a>
+						<a href="https://italianrockmafia.ch/meetup" class="list-group-item list-group-item-action">Events</a>
 				</div>
 
 
