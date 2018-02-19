@@ -2,6 +2,7 @@
 
 
 function checkIrmUser($telegramID){
+	global $config;
 	$users = json_decode(getCall($config->api_url . "users?transform=1"), true);
 	
 	$userids = array();
@@ -29,7 +30,8 @@ function checkIrmUser($telegramID){
 
 
 function saveSessionArray($tg_user){
-	$irmarray = json_decode(getCall($config->api_url . "users?transform=1&filter=telegramID,eq," . $tg_user['id']));	
+	global $config;
+	$irmarray = json_decode(getCall($config->api_url . "users?transform=1&filter=telegramID,eq," . $tg_user['id']),true);	
 	$_SESSION['tgID'] = $tg_user['id'];
 	foreach($irmarray['users'] as $irm_user){
 	$_SESSION['irmID'] = $irm_user['userID'];
