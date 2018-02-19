@@ -1,5 +1,9 @@
 <?php
 session_start();
+if(!isset($_COOKIE['referer'])){
+	setcookie('referer', $_SERVER['HTTP_REFERER']);
+	echo $_COOKIE['referer'];
+}
 ?>
 <!doctype html>
 <html>
@@ -37,7 +41,8 @@ define('BOT_USERNAME', 'irmbot'); // place username of your bot here
 
 require 'global/functions/telegram.php';
 if ($_GET['logout']) {
-  setcookie('tg_user', '');
+	setcookie('tg_user', '');
+	setcookie('referer', '', time() - 3600);
   header('Location: login.php');
 }
 
