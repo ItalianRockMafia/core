@@ -37,6 +37,6 @@ function saveSessionArray($tg_user){
 	$_SESSION['irmID'] = $irm_user['userID'];
 	}
 	$_SESSION['username'] = $tg_user['username'];
-	$_SESSION['firstname'] = $tg_user['firstname'];
-	$_SESSION['lastname'] = $tg_user['lastname'];
+	$_SESSION['firstname'] = $tg_user['first_name'];
+	$_SESSION['lastname'] = $tg_user['last_name'];
 }
