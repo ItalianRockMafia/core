@@ -6,6 +6,7 @@ require 'global/functions/telegram.php';
 require 'global/functions/irm.php';
 
 $tg_user = getTelegramUserData();
+saveSessionArray($tg_user);
 
 $tgID = $tg_user["id"];
 $firstname = $tg_user["first_name"];
