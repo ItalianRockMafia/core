@@ -9,7 +9,8 @@ function checkTelegramAuthorization($auth_data) {
   unset($auth_data['hash']);
   $data_check_arr = [];
   foreach ($auth_data as $key => $value) {
-    $data_check_arr[] = $key . '=' . $value;
+   // $data_check_arr[] = $key . '=' . $value;
+    $data_check_arr[] = $key . '=' . str_replace('https:/t', 'https://t', $value);
   }
   sort($data_check_arr);
   $data_check_string = implode("\n", $data_check_arr);
