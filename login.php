@@ -53,7 +53,7 @@ if ($tg_user !== false) {
   $bot_username = BOT_USERNAME;
   $html = <<<HTML
 <h1>Please login:</h1>
-<script async src="https://telegram.org/js/telegram-widget.js?3" data-telegram-login="{$bot_username}" data-size="large" data-auth-url="https://italianrockmafia.ch/check.php" <script async src="https://telegram.org/js/telegram-widget.js?3" data-telegram-login="irmbot" data-size="large" data-auth-url="https://italianrockmafia.ch/check.php" data-request-access="write"></script>></script>
+<script async src="https://telegram.org/js/telegram-widget.js?3" data-telegram-login="{$bot_username}" data-size="large" data-auth-url="https://italianrockmafia.ch/check.php" <script async src="https://telegram.org/js/telegram-widget.js?3" data-telegram-login="irmbot" data-size="large" data-auth-url="https://italianrockmafia.ch/check.php" data-request-access="write"></script>
 HTML;
 }
 
