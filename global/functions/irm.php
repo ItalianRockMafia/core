@@ -36,6 +36,7 @@ function saveSessionArray($tg_user){
 	foreach($irmarray['userStation'] as $irm_user){
 	$_SESSION['irmID'] = $irm_user['userID'];
 	$_SESSION['station'] = $irm_user['station'];
+	$_SESSION['public_transport'] = $irm_user['public_transport'];
 	}
 	$_SESSION['username'] = $tg_user['username'];
 	$_SESSION['firstname'] = $tg_user['first_name'];
