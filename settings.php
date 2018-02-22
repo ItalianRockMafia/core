@@ -63,6 +63,8 @@ if ($tg_user !== false) {
 
 	$userStations = json_decode(getCall($config->api_url . "userStation?transform=1&filter=telegramID,eq," . $tg_user["id"]),true);
 	$stations =  json_decode(getCall($config->api_url . "stations?transform=1"), true);
+	
+
 
 	if(empty($userStations["userStation"])){
 		echo '<div class="alert alert-danger" role="alert">
@@ -80,23 +82,33 @@ if ($tg_user !== false) {
 <div class="topspacer"></div>
 <h3>Select your station</h3>
 <form method="POST" action="stationmgmt.php?upatestation=1" class="form-inline">
-  <div class="form-group mb-2">
-    <label for="userID" class="sr-only">User ID</label>
+	<div class="form-group mb-2">
+  	<label for="userID" class="sr-only">User ID</label>
     <input type="text" readonly class="form-control-plaintext" id="userID" value="<?php echo $tgID . ' // ' . $username; ?>">
   </div>
   <div class="form-group mx-sm-3 mb-2">
-    <label for="station" class="sr-only">Station</label>
-		<select class="form-control" name="station">
-  		<option value="<?php echo $userStation["stationID"];?>"><?php echo $userStation["station"]; ?></option>
+  	<label for="station" class="sr-only">Station</label>
+		<select class="form-control" name="station"><?php
+		foreach($stations["stations"] as $station){
+		if($station["station"] == $userStation["station"]){
+			$userStationID =  $station['stationID'];
+		}
+	}
+	?>
+  		<option value="<?php echo $userStationID;?>"><?php echo $userStation["station"]; ?></option>
 			<?php
 				foreach($stations["stations"] as $station){
 					if($station["station"] != $userStation["station"]){
-					echo '<option value="' . $station["stationID"] . '">' . $station["station"] . '</station>';
-				}}
+						echo '<option value="' . $station["stationID"] . '">' . $station["station"] . '</station>';
+					}
+				}
 			?>
 		</select>
-   
-  </div>
+	</div>
+	<div class="form-check mb-2 mr-sm-2">
+  	<input type="checkbox" name="publictransport" value="1" class="form-check-input" id="publictransport" <?php if($userStation['public_transport'] == "1"){echo "checked";}?>>
+    <label class="form-check-label" for="publictransport">I'm using public transport </label>
+	</div>
   <button type="submit" class="btn btn-success mb-2">Confirm Station</button>
 </form>
 

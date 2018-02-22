@@ -7,7 +7,11 @@ $userID = $_SESSION['irmID'];
 if(isset($_GET['upatestation'])){
 
 	$stationID = $_POST['station'];
-	$postfields = "{\n \"stationIDFK\": \"$stationID\" \n}";
+	$publictransport = $_POST['publictransport'];
+	if(!isset($publictransport)){
+		$publictransport = "0";
+	}
+	$postfields = "{\n \"stationIDFK\": \"$stationID\", \n \"public_transport\": \"$publictransport\" \n}";
 	putCall($config->api_url . "users/" . $userID, $postfields);
 	header('Location: settings.php');
 
