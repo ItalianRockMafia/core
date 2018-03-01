@@ -63,6 +63,7 @@ if ($tg_user !== false) {
 
 	$userStations = json_decode(getCall($config->api_url . "userStation?transform=1&filter=telegramID,eq," . $tg_user["id"]),true);
 	$stations =  json_decode(getCall($config->api_url . "stations?transform=1"), true);
+	$mycars = json_decode(getCall($config->api_url . "carUsers?transform=1&filter=telegramID,eq," . $tg_user["id"]), true);
 	
 
 
@@ -125,7 +126,27 @@ if ($tg_user !== false) {
 
 <?php
 	}
+?>
+<h3>Your cars</h3>
+<table>
+<thead>
+	<tr>
+		<td>Brand</td> 
+		<td>Model</td> 
+		<td>Color</td> 
+		<td>Licence</td>
+		<td>Seats</td>
+</thead>
+<tbody>
 
+<?php
+foreach($mycars['carUsers'] as $car){
+	echo '<tr><td>' . $car["brand"] . '</td><td>' . $car["model"] . '</td><td>' . $car["color"] . '</td><td>' . $car["licence"] . '</td><td>' . $car["places"] . '</tr>';
+}
+?>
+</tbody>
+</table>
+<?php
 }
 }
 
