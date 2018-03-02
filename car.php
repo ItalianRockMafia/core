@@ -67,6 +67,22 @@ if ($tg_user !== false) {
 		}
 	}
 
+	if(isset($_GET['update'])){
+		$car = $_GET['update'];
+		$brand = $_POST['brand'];
+		$model = $_POST['model'];
+		$color = $_POST['color'];
+		$licence = $_POST['licence'];
+		$seats = $_POST['seats'];
+		$owner = $_SESSION['irmID'];
+		$postfields = "{\n\t\"brandIDFK\": \"$brand\", \n\t\"modelIDFK\": \"$model\",\n\t\"colorIDFK\": \"$color\",\n\t\"licence\": \"$licence\",\n\t\"places\": \"$seats\",\n\t\"ownerIDFK\": \"$owner\"\n\t\n}";
+		$status = putCall($config->api_url . "cars/" . $car, $postfields);
+		if(is_numeric($status)){
+			header('Location: settings.php');
+		}
+	}
+	
+
 if(isset($_GET['delete'])){
 	deleteCall($config->api_url . "cars/" . $_GET['delete']);
 	header('Location: settings.php');
@@ -82,7 +98,7 @@ if(isset($_GET['new'])){
 
 if($edit){
 echo '<h1>Edit Car</h1>';
-echo '<form action="?edit=' . $car . '" method="POST">';
+echo '<form action="?update=' . $car . '" method="POST">';
 }elseif($new){
 	echo '<h1>New Car</h1>';
 	echo '<form action="?add=1" method="POST">';
@@ -98,14 +114,14 @@ $colors = json_decode(getCall($config->api_url . "colors?transform=1"), true);
 <div class="form-group">
   
   <label for="brand">Brand</label><i class="fa fa-plus-circle righticon" aria-hidden="true"></i>
-  <select class="form-control" name="brand">
+  
   <?php
   if($new){
 	foreach($brands['carbrands'] as $brand){
-		echo '<option value="' . $brand['brandID'] . '">' . $brand['brand'] . '</option>';
+		echo '<select class="form-control" name="brand"><option value="' . $brand['brandID'] . '">' . $brand['brand'] . '</option>';
 	}
 } elseif($edit){
-
+echo '<select class="form-control" name="brand" disabled>';
 	foreach($cardata['carUsers'] as $userCar){
 		foreach($brands["carbrands"] as $brand){
 			if($brand["brand"] == $userCar["brand"]){
@@ -130,14 +146,13 @@ $colors = json_decode(getCall($config->api_url . "colors?transform=1"), true);
   <div class="form-group">
   
   <label for="model">Model</label><i class="fa fa-plus-circle righticon" aria-hidden="true"></i>
-  <select class="form-control" name="model">
   <?php
   if($new){
 	foreach($models['carmodels'] as $model){
-		echo '<option value="' . $model['modelID'] . '">' . $model['model'] . '</option>';
+		echo '<select class="form-control" name="model"><option value="' . $model['modelID'] . '">' . $model['model'] . '</option>';
 	}
 } elseif($edit){
-
+echo '<select class="form-control" name="model" disabled>';
 	foreach($cardata['carUsers'] as $userCar){
 		foreach($models["carmodels"] as $model){
 			if($model["model"] == $userCar["model"]){

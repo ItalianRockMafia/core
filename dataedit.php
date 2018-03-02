@@ -1,18 +1,5 @@
 <?php
 session_start();
-$config = require 'config.php';
-require 'global/functions/apicalls.php';
-require 'global/functions/telegram.php';
-require 'global/functions/irm.php';
-
-$tg_user = getTelegramUserData();
-saveSessionArray($tg_user);
-
-$tgID = $tg_user["id"];
-$firstname = $tg_user["first_name"];
-$lastname = $tg_user["last_name"];
-$username = $tg_user["username"];
-if ($tg_user !== false) {
 ?>
 <!doctype html>
 <html>
@@ -21,6 +8,7 @@ if ($tg_user !== false) {
  	   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 			<link rel="stylesheet" href="global/main.css">
 		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+		<script src="https://use.fontawesome.com/c414fc2c21.js"></script>
 		<title>IRM - Settings</title>
 	</head>
 	<body>
@@ -33,11 +21,11 @@ if ($tg_user !== false) {
 	  </button>
 	<div class="collapse navbar-collapse" id="navbarSupportedContent">
 		<ul class="navbar-nav mr-auto">
-		<li class="nav-item active">
-        				<a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
+		<li class="nav-item">
+        				<a class="nav-link" href="main.php">Home</a>
       				</li>
-			  <li class="nav-item">
-				<a class="nav-link" href="settings.php">Settings</a>
+			  <li class="nav-item active">
+				<a class="nav-link" href="#">Settings <span class="sr-only">(current)</span></a>
 			  </li>
 				<li class="nav-item">
         	<a class="nav-link" href="https://italianrockmafia.ch/meetup">Events</a>
@@ -53,25 +41,22 @@ if ($tg_user !== false) {
 <div class="topspacer"></div>
 <main role="main">
 	<div class="container">
-	
-				<div class="list-group">
-				<?php
-					$isIRM = checkIrmUser($tgID);
-					if(!$isIRM){
-						echo '<a href="checker.php" class="list-group-item list-group-item-action">Register in IRM Database</a>';
-					} else {
-						echo '<a href="checker.php" class="list-group-item list-group-item-action">Check status in IRM Database</a>';
-					}
-
-				?>
-  					<a href="settings.php" class="list-group-item list-group-item-action">Settings</a>
-						<a href="https://italianrockmafia.ch/meetup" class="list-group-item list-group-item-action">Events</a>
-				</div>
-
-
 
 <?php
 
+require 'global/functions/apicalls.php';
+require 'global/functions/telegram.php';
+$config = require "config.php";
+
+
+$tg_user = getTelegramUserData();
+
+if ($tg_user !== false) {
+
+if(isset($_GET['brand'])){
+
+
+}
 
 } else {
 	echo '
