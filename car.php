@@ -93,8 +93,7 @@ $models = json_decode(getCall($config->api_url . "carmodels?transform=1"), true)
 $colors = json_decode(getCall($config->api_url . "colors?transform=1"), true);
 
 
-echo '<pre>'; print_r($cardata); echo '</pre>---------------------------------<br>';
-echo '<pre>'; print_r($brands); echo '</pre>---------------------------------<br>';
+
 ?>
 <div class="form-group">
   
@@ -106,50 +105,98 @@ echo '<pre>'; print_r($brands); echo '</pre>---------------------------------<br
 		echo '<option value="' . $brand['brandID'] . '">' . $brand['brand'] . '</option>';
 	}
 } elseif($edit){
-	foreach($cardata['carUsers'] as $car){
-	foreach($brands['carbrands'] as $brand){
-	if($brand["brand"] == $cardata["brand"]){
-		$brandID =  $brand['brandID'];
-	}
-}
-echo '<option value="' . $brandID .'">' . $brand["brand"] .'</option>';
-foreach($brands["carbrands"] as $brand){
-	if($brand["brand"] != $cardata["brand"]){
-		echo '<option value="' . $brand["brandID"] . '">' . $brand["brand"] . '</station>';
-	}
-}
-}
-}
+
+	foreach($cardata['carUsers'] as $userCar){
+		foreach($brands["carbrands"] as $brand){
+			if($brand["brand"] == $userCar["brand"]){
+				$brandID =  $brand['brandID'];
+			}
+		}
+		?>
+				<option value="<?php echo $brandID;?>"><?php echo $userCar["brand"]; ?></option>
+				<?php
+					foreach($brands["carbrands"] as $brand){
+						if($brand["brand"] != $userCar["brand"]){
+							echo '<option value="' . $brand["brandID"] . '">' . $brand["brand"] . '</option>';
+						}
+					}
+				?>
+			</select><?php
+}}
   ?>
-  </select>
   </div>
+
   <div class="form-group">
   
   <label for="model">Model</label><i class="fa fa-plus-circle righticon" aria-hidden="true"></i>
   <select class="form-control" name="model">
   <?php
+  if($new){
 	foreach($models['carmodels'] as $model){
 		echo '<option value="' . $model['modelID'] . '">' . $model['model'] . '</option>';
 	}
+} elseif($edit){
+
+	foreach($cardata['carUsers'] as $userCar){
+		foreach($models["carmodels"] as $model){
+			if($model["model"] == $userCar["model"]){
+				$modelID =  $model['modelID'];
+			}
+		}
+		?>
+				<option value="<?php echo $modelID;?>"><?php echo $userCar["model"]; ?></option>
+				<?php
+					foreach($models["carmodels"] as $model){
+						if($model["model"] != $userCar["model"]){
+							echo '<option value="' . $model["modelID"] . '">' . $model["model"] . '</option>';
+						}
+					}
+				?>
+			</select><?php
+}}
   ?>
-  </select>
   </div>
-  <div class="form-group">
   
-  <label for="color">color</label><i class="fa fa-plus-circle righticon" aria-hidden="true"></i>
+	
+	<div class="form-group">
+  
+  <label for="color">Color</label><i class="fa fa-plus-circle righticon" aria-hidden="true"></i>
   <select class="form-control" name="color">
   <?php
+  if($new){
 	foreach($colors['colors'] as $color){
 		echo '<option value="' . $color['colorID'] . '">' . $color['color'] . '</option>';
 	}
-  ?>
-  </select>
-  </div>
+} elseif($edit){
 
+	foreach($cardata['carUsers'] as $userCar){
+		foreach($colors["colors"] as $color){
+			if($color["color"] == $userCar["color"]){
+				$colorID =  $color['colorID'];
+			}
+		}
+		?>
+				<option value="<?php echo $colorID;?>"><?php echo $userCar["color"]; ?></option>
+				<?php
+					foreach($colors["colors"] as $color){
+						if($color["color"] != $userCar["color"]){
+							echo '<option value="' . $color["colorID"] . '">' . $color["color"] . '</option>';
+						}
+					}
+				?>
+			</select><?php
+}}
+  ?>
+  </div>
 
   <div class="form-group">
   <label for="licence">Licence</label>
-    <input type="text" class="form-control" name="licence" id="licence" placeholder="AG272727">
+	<?php if($new){
+		echo '<input type="text" class="form-control" name="licence" id="licence" placeholder="AG272727">';
+	}elseif($edit){
+		echo '<input type="text" class="form-control" name="licence" id="licence" value="'. $cardata['carusers'][0]['licence'] . '">';
+	}
+	?>
   </div>
   <div class="form-group">
   <label for="seats">Seats</label>
