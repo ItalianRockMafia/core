@@ -60,7 +60,7 @@ if ($tg_user !== false) {
 		$licence = $_POST['licence'];
 		$seats = $_POST['seats'];
 		$owner = $_SESSION['irmID'];
-		$postfields = "{\n\t\"brandIDFK\": \"$brand\", \n\t\"modelIDFK\": \"$model\",\n\t\"colorIDFK\": \"$color\",\n\t\"licence\": \"$licence\",\n\t\"seats\": \"$seats\",\n\t\"ownerIDFK\": \"$owner\"\n\t\n}";
+		$postfields = "{\n\t\"brandIDFK\": \"$brand\", \n\t\"modelIDFK\": \"$model\",\n\t\"colorIDFK\": \"$color\",\n\t\"licence\": \"$licence\",\n\t\"places\": \"$seats\",\n\t\"ownerIDFK\": \"$owner\"\n\t\n}";
 		$car = postcall($config->api_url . "cars", $postfields);
 		if(is_numeric($car)){
 			header('Location: settings.php');
@@ -120,9 +120,10 @@ $colors = json_decode(getCall($config->api_url . "colors?transform=1"), true);
 							echo '<option value="' . $brand["brandID"] . '">' . $brand["brand"] . '</option>';
 						}
 					}
+				}}
 				?>
 			</select><?php
-}}
+
   ?>
   </div>
 
@@ -150,10 +151,10 @@ $colors = json_decode(getCall($config->api_url . "colors?transform=1"), true);
 						if($model["model"] != $userCar["model"]){
 							echo '<option value="' . $model["modelID"] . '">' . $model["model"] . '</option>';
 						}
-					}
+					}}}
 				?>
 			</select><?php
-}}
+
   ?>
   </div>
   
@@ -182,25 +183,32 @@ $colors = json_decode(getCall($config->api_url . "colors?transform=1"), true);
 						if($color["color"] != $userCar["color"]){
 							echo '<option value="' . $color["colorID"] . '">' . $color["color"] . '</option>';
 						}
-					}
+					}}}
 				?>
 			</select><?php
-}}
+
   ?>
   </div>
 
   <div class="form-group">
   <label for="licence">Licence</label>
+
 	<?php if($new){
 		echo '<input type="text" class="form-control" name="licence" id="licence" placeholder="AG272727">';
 	}elseif($edit){
-		echo '<input type="text" class="form-control" name="licence" id="licence" value="'. $cardata['carusers'][0]['licence'] . '">';
+		echo '<input type="text" class="form-control" name="licence" id="licence" value="'. $cardata['carUsers'][0]['licence'] . '">';
 	}
 	?>
   </div>
   <div class="form-group">
   <label for="seats">Seats</label>
-  <input type="number" name="seats" min="1" max="10" value="5" class="form-control" id="seats">
+	<?php if($new){
+		echo '<input type="number" name="seats" min="1" max="10" value="5" class="form-control" id="seats">';
+	}elseif($edit){
+		echo '<input type="number" name="seats" min="1" max="10" value="' . $cardata['carUsers'][0]['places'] . '" class="form-control" id="seats">';
+	}
+	?>
+  
   </div>
  
 
