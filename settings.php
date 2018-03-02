@@ -8,6 +8,7 @@ session_start();
  	   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 			<link rel="stylesheet" href="global/main.css">
 		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+		<script src="https://use.fontawesome.com/c414fc2c21.js"></script>
 		<title>IRM - Settings</title>
 	</head>
 	<body>
@@ -127,25 +128,29 @@ if ($tg_user !== false) {
 <?php
 	}
 ?>
-<h3>Your cars</h3>
-<table>
+<div class="topspacer"></div>
+<h3>Your cars <a href="car.php?new=1"><i class="fa fa-plus-circle righticon" aria-hidden="true"></i></a></h3>
+<div class="table-responsive">
+<table class="table">
 <thead>
 	<tr>
-		<td>Brand</td> 
-		<td>Model</td> 
-		<td>Color</td> 
-		<td>Licence</td>
-		<td>Seats</td>
+		<th scope="col">Brand</th> 
+		<th scope="col">Model</th> 
+		<th scope="col">Color</th> 
+		<th scope="col">Licence<htd>
+		<th scope="col">Seats</th>
+		<th scope="col">Options</th>
 </thead>
 <tbody>
 
 <?php
 foreach($mycars['carUsers'] as $car){
-	echo '<tr><td>' . $car["brand"] . '</td><td>' . $car["model"] . '</td><td>' . $car["color"] . '</td><td>' . $car["licence"] . '</td><td>' . $car["places"] . '</tr>';
+	echo '<tr><td>' . $car["brand"] . '</td><td>' . $car["model"] . '</td><td>' . $car["color"] . '</td><td>' . $car["licence"] . '</td><td>' . $car["places"] . '</td><td><a href="car.php?edit=' . $car['carID'] . '" class="btn btn-success">Edit</button><a href="car.php?delete=' . $car['carID'] . '" class="btn btn-danger">Delete</button></td></tr>';
 }
 ?>
 </tbody>
 </table>
+</div>
 <?php
 }
 }
