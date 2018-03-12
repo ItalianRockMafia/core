@@ -53,10 +53,50 @@ $tg_user = getTelegramUserData();
 
 if ($tg_user !== false) {
 
+	if(isset($_GET['addbrand'])){
+		$brand = $_POST['brand'];
+		$postfields = "{\"brand\": \"$brand\"}";
+		postcall($config->api_url . "carbrands", $postfields);
+		header('Location: car.php?new=1');
+	}
+
+
 if(isset($_GET['brand'])){
-
-
+	?>
+<form method="POST" action="?addbrand=1">
+<div class="form-group">
+    <label for="brand">New Brand</label>
+    <input type="text" class="form-control" id="brand" placeholder="VW">
+  </div>
+  <button type="submit" class="btn btn-success">Submit</button>
+  </form>
+<?php
 }
+
+if(isset($_GET['model'])){
+	?>
+<form method="POST" action="?addmodel=1">
+<div class="form-group">
+    <label for="model">New Model</label>
+    <input type="text" class="form-control" id="model" placeholder="Polo">
+  </div>
+  <button type="submit" class="btn btn-success">Submit</button>
+  </form>
+<?php
+}
+
+if(isset($_GET['color'])){
+	?>
+<form method="POST" action="?addcolor=1">
+<div class="form-group">
+    <label for="color">New Color</label>
+    <input type="text" class="form-control" id="color" placeholder="Pink">
+  </div>
+  <button type="submit" class="btn btn-success">Submit</button>
+  </form>
+<?php
+}
+
 
 } else {
 	echo '

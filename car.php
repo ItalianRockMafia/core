@@ -25,7 +25,7 @@ session_start();
         				<a class="nav-link" href="main.php">Home</a>
       				</li>
 			  <li class="nav-item active">
-				<a class="nav-link" href="#">Settings <span class="sr-only">(current)</span></a>
+				<a class="nav-link" href="settings.php">Settings <span class="sr-only">(current)</span></a>
 			  </li>
 				<li class="nav-item">
         	<a class="nav-link" href="https://italianrockmafia.ch/meetup">Events</a>
