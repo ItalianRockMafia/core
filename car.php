@@ -117,8 +117,9 @@ $colors = json_decode(getCall($config->api_url . "colors?transform=1"), true);
   
   <?php
   if($new){
+		echo '<select class="form-control" name="brand">';
 	foreach($brands['carbrands'] as $brand){
-		echo '<select class="form-control" name="brand"><option value="' . $brand['brandID'] . '">' . $brand['brand'] . '</option>';
+		echo '<option value="' . $brand['brandID'] . '">' . $brand['brand'] . '</option>';
 	}
 } elseif($edit){
 echo '<select class="form-control" name="brand" disabled>';
@@ -148,13 +149,14 @@ echo '<select class="form-control" name="brand" disabled>';
   <label for="model">Model</label><i class="fa fa-plus-circle righticon" aria-hidden="true"></i>
   <?php
   if($new){
+		echo '<select class="form-control" name="model">';
 	foreach($models['carmodels'] as $model){
-		echo '<select class="form-control" name="model"><option value="' . $model['modelID'] . '">' . $model['model'] . '</option>';
+		echo '<option value="' . $model['modelID'] . '">' . $model['model'] . '</option>';
 	}
 } elseif($edit){
-echo '<select class="form-control" name="model" disabled>';
+	echo '<select class="form-control" name="brand" disabled>';
 	foreach($cardata['carUsers'] as $userCar){
-		foreach($models["carmodels"] as $model){
+		foreach($brands["carModels"] as $model){
 			if($model["model"] == $userCar["model"]){
 				$modelID =  $model['modelID'];
 			}
@@ -162,11 +164,12 @@ echo '<select class="form-control" name="model" disabled>';
 		?>
 				<option value="<?php echo $modelID;?>"><?php echo $userCar["model"]; ?></option>
 				<?php
-					foreach($models["carmodels"] as $model){
+					foreach($models["carModels"] as $model){
 						if($model["model"] != $userCar["model"]){
 							echo '<option value="' . $model["modelID"] . '">' . $model["model"] . '</option>';
 						}
-					}}}
+					}
+				}}
 				?>
 			</select><?php
 
