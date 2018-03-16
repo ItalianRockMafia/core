@@ -60,13 +60,27 @@ if ($tg_user !== false) {
 		header('Location: car.php?new=1');
 	}
 
+	if(isset($_GET['addmodel'])){
+		$model = $_POST['model'];
+		$postfields = "{\"model\": \"$model\"}";
+		postcall($config->api_url . "carmodels", $postfields);
+		header('Location: car.php?new=1');
+	}
+
+	if(isset($_GET['addcolor'])){
+		$color = $_POST['color'];
+		$postfields = "{\"color\": \"$color\"}";
+		postcall($config->api_url . "colors", $postfields);
+		header('Location: car.php?new=1');
+	}
+
 
 if(isset($_GET['brand'])){
 	?>
 <form method="POST" action="?addbrand=1">
 <div class="form-group">
     <label for="brand">New Brand</label>
-    <input type="text" class="form-control" id="brand" placeholder="VW">
+    <input type="text" class="form-control" id="brand" name="brand" placeholder="VW">
   </div>
   <button type="submit" class="btn btn-success">Submit</button>
   </form>
@@ -78,7 +92,7 @@ if(isset($_GET['model'])){
 <form method="POST" action="?addmodel=1">
 <div class="form-group">
     <label for="model">New Model</label>
-    <input type="text" class="form-control" id="model" placeholder="Polo">
+    <input type="text" class="form-control" name="model" id="model" placeholder="Polo">
   </div>
   <button type="submit" class="btn btn-success">Submit</button>
   </form>
@@ -90,7 +104,7 @@ if(isset($_GET['color'])){
 <form method="POST" action="?addcolor=1">
 <div class="form-group">
     <label for="color">New Color</label>
-    <input type="text" class="form-control" id="color" placeholder="Pink">
+    <input type="text" class="form-control" id="color" name="color" placeholder="Pink">
   </div>
   <button type="submit" class="btn btn-success">Submit</button>
   </form>
