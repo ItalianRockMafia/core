@@ -113,7 +113,7 @@ $colors = json_decode(getCall($config->api_url . "colors?transform=1"), true);
 ?>
 <div class="form-group">
   
-  <label for="brand">Brand</label><i class="fa fa-plus-circle righticon" aria-hidden="true"></i>
+  <label for="brand">Brand</label><a href="dataedit.php?brand=1"><i class="fa fa-plus-circle righticon" aria-hidden="true"></i></a>
   
   <?php
   if($new){
@@ -146,7 +146,7 @@ echo '<select class="form-control" name="brand" disabled>';
 
   <div class="form-group">
   
-  <label for="model">Model</label><i class="fa fa-plus-circle righticon" aria-hidden="true"></i>
+  <label for="model">Model</label><a href="dataedit.php?model=1"><i class="fa fa-plus-circle righticon" aria-hidden="true"></i></a>
   <?php
   if($new){
 		echo '<select class="form-control" name="model">';
@@ -179,7 +179,7 @@ echo '<select class="form-control" name="brand" disabled>';
 	
 	<div class="form-group">
   
-  <label for="color">Color</label><i class="fa fa-plus-circle righticon" aria-hidden="true"></i>
+  <label for="color">Color</label><a href="dataedit.php?color=1"><i class="fa fa-plus-circle righticon" aria-hidden="true"></i></a>
   <select class="form-control" name="color">
   <?php
   if($new){

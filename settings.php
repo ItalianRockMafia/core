@@ -65,7 +65,6 @@ if ($tg_user !== false) {
 	$userStations = json_decode(getCall($config->api_url . "userStation?transform=1&filter=telegramID,eq," . $tg_user["id"]),true);
 	$stations =  json_decode(getCall($config->api_url . "stations?transform=1"), true);
 	$mycars = json_decode(getCall($config->api_url . "carUsers?transform=1&filter=telegramID,eq," . $tg_user["id"]), true);
-	
 
 
 	if(empty($userStations["userStation"])){
@@ -144,12 +143,20 @@ if ($tg_user !== false) {
 <tbody>
 
 <?php
+if(!empty($mycars['userCars'])){
 foreach($mycars['carUsers'] as $car){
 	echo '<tr><td>' . $car["brand"] . '</td><td>' . $car["model"] . '</td><td>' . $car["color"] . '</td><td>' . $car["licence"] . '</td><td>' . $car["places"] . '</td><td><a href="car.php?edit=' . $car['carID'] . '" class="btn btn-success">Edit</button><a href="car.php?delete=' . $car['carID'] . '" class="btn btn-danger">Delete</button></td></tr>';
-}
+}}
 ?>
 </tbody>
 </table>
+<?php
+if(empty($mycars['userCars'])){
+	echo '<div class="alert alert-warning" role="alert">
+  You have no cars. register a <a href="car.php?new=1">new one</a>
+</div>';
+}
+?>
 </div>
 <?php
 }
