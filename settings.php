@@ -160,6 +160,12 @@ if(empty($mycars['userCars'])){
 </div>
 <?php
 }
+} else {
+	echo '
+	<div class="alert alert-danger" role="alert">
+	<strong>Error.</strong> You need to <a href="login.php">login</a> first
+  </div>
+';
 }
 
 ?>
