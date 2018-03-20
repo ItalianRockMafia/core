@@ -8,5 +8,9 @@ return (object) array(
 	),
 	'google' => array(
 		'map_api_key' => "ENTER_G_MAPS_API_KEY_HERE"
+	),
+	'spotify' => array(
+		'client_id' => "ENTER_SPOTIFY_CLIENT_ID_HERE",
+		'client_secret' => "ENTER_SPOTIFY_CLIENT_SECRET_HERE"
 	)
 );
