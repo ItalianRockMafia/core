@@ -28,7 +28,7 @@ session_start();
 
 			  </li>
 			  <li class="nav-item">
-        	<a class="nav-link" href="https://italianrockmafia.ch/meetup">Events</a>
+        	<a class="nav-link" href="<?php echo $config->app_url;?>meetup">Events</a>
       			</li>
 				</ul>
 				
