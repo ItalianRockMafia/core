@@ -1,5 +1,24 @@
 <?php
 session_start();
+require 'global/functions/apicalls.php';
+require 'global/functions/telegram.php';
+$config = require "config.php";
+
+
+$tg_user = getTelegramUserData();
+
+if(isset($_GET['emp'])){
+	$status = $_POST['empbsc'];
+	if(!isset($status)){
+		$status = "0";
+	}
+	$postfields = "{\n \"bsc\": \"$status\" \n}";
+	putCall($config->api_url . "users/" . $_SESSION['irmID'], $postfields);
+	header('Location: settings.php');
+	
+	
+	
+}
 ?>
 <!doctype html>
 <html>
@@ -47,12 +66,7 @@ session_start();
 
 <?php
 
-require 'global/functions/apicalls.php';
-require 'global/functions/telegram.php';
-$config = require "config.php";
 
-
-$tg_user = getTelegramUserData();
 
 if ($tg_user !== false) {
 	$tgID = $tg_user["id"];
@@ -82,8 +96,23 @@ if ($tg_user !== false) {
 
 	foreach($userStations["userStation"] as $userStation){
 		$_SESSION['irmID'] = $userStation['userID'];
+		$myacc = json_decode(getCall($config->api_url . "users/" .$_SESSION['irmID'] . "?transform=1"), true);
+		
 ?>
 <div class="topspacer"></div>
+<h3>EMP</h3>
+<form method="POST" action="settings.php?emp=1" class="form-inline">
+<div class="form-check mb-2 mr-sm-2">
+<input type="checkbox" name="empbsc" value="1" class="form-check-input" id="empbsc" <?php if($myacc['bsc'] == "1"){echo "checked";}?>>
+<label class="form-check-label" for="inlineFormCheck">
+      I'm a EMP-Backstage Club member
+    </label>
+  </div>
+	<button type="submit" class="btn btn-success mb-2">Submit</button>
+
+	</form>
+	<div class="topspacer"></div>
+
 <h3>Select your station</h3>
 <form method="POST" action="stationmgmt.php?upatestation=1" class="form-inline">
 	<div class="form-group mb-2">

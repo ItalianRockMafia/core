@@ -69,6 +69,7 @@ if ($tg_user !== false) {
 				?>
   					<a href="settings.php" class="list-group-item list-group-item-action">Settings</a>
 						<a href="<?php echo $config->app_url;?>meetup" class="list-group-item list-group-item-action">Events</a>
+						<a href="<?php echo $config->app_url;?>emp" class="list-group-item list-group-item-action">EMP-Orders</a>
 				</div>
 
 
