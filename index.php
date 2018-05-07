@@ -14,7 +14,7 @@ array_push($userids, $user["telegramID"]);
 
 $tg_user = getTelegramUserData();
 if ($tg_user !== false && in_array($tg_user["id"], $userids)) {
-	if (isset($_COOKIE['referer']) && $_COOKIE['referer'] != "https://italianrockmafia.ch/login.php"){
+	if (isset($_COOKIE['referer']) && $_COOKIE['referer'] !=  $config->app_url . "login.php"){
 		setcookie('referer', '', time() - 3600);
 		header('Location: ' . $_COOKIE['referer']);
 	} else {
