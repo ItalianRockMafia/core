@@ -30,6 +30,10 @@ session_start();
 				<li class="nav-item">
         	<a class="nav-link" href="https://italianrockmafia.ch/meetup">Events</a>
       	</li>
+				<li class="nav-item">
+        				<a class="nav-link" href="https://italianrockmafia.ch/vinyl">Vinyls</a>
+      				</li>
+				</ul>
 				</ul>
 				<ul class="nav navbar-nav navbar-right">
 				<li class="nav-item">
