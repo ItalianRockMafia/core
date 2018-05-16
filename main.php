@@ -43,10 +43,10 @@ if ($tg_user !== false) {
         	<a class="nav-link" href="<?php echo $config->app_url;?>meetup">Events</a>
       	</li>
 		  <li class="nav-item">
-        				<a class="nav-link" href="https://italianrockmafia.ch/emp">EMP</a>
+        				<a class="nav-link" href="<?php echo $config->app_url; ?>emp">EMP</a>
       				</li>
 					  <li class="nav-item">
-        				<a class="nav-link" href="https://italianrockmafia.ch/vinyl">Vinyls</a>
+        				<a class="nav-link" href="<?php echo $config->app_url; ?>vinyl">Vinyls</a>
       				</li>
 				</ul>
 				<ul class="nav navbar-nav navbar-right">
