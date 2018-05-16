@@ -1,6 +1,6 @@
 <?php
 return (object) array(
-	'api_url' => "ENTER_API_URL_HERE", //with slash slash
+	'api_url' => "ENTER_API_URL_HERE", //with ending slash
 	'app_url' => "ENTER_APP_URL_HERE", //with ending slash
 	'telegram' => array(
 		'chatID' => "CHAT_ID_HERE",
@@ -15,7 +15,7 @@ return (object) array(
 		'client_secret' => "ENTER_SPOTIFY_CLIENT_SECRET_HERE"
 	),
 	'lastfm' => array(
-		'api_key' => "a6a68923e3eadd7857dc7d97f2ea643d",
+		'api_key' => "LAST_FM_API_KEY_HERE",
 		'api_root' => "http://ws.audioscrobbler.com/"
 	)
 );
