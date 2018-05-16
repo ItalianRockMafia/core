@@ -6,7 +6,6 @@
  *
  * @author Jonas Hüsser
  *
- * @SuppressWarnings(PHPMD.ElseExpression)
  *
  * @since 0.1
  */
@@ -47,7 +46,6 @@ if ($err) {
  *
  * @author Jonas Hüsser
  *
- * @SuppressWarnings(PHPMD.ElseExpression)
  *
  * @since 0.1
  */
@@ -91,7 +89,6 @@ if ($err) {
  *
  * @author Jonas Hüsser
  *
- * @SuppressWarnings(PHPMD.ElseExpression)
  *
  * @since 0.1
  */
@@ -134,10 +131,10 @@ if ($err) {
  *
  * @author Jonas Hüsser
  *
- * @SuppressWarnings(PHPMD.ElseExpression)
  *
- * @since 0.2
- */
+ * @since 0.1
+ * 
+ *  */
  function deleteCall($apiURL){
 $curl = curl_init();
 

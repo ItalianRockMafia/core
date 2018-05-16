@@ -57,8 +57,10 @@ $config = require "config.php";
 
 $tg_user = getTelegramUserData();
 
+//check if user is logged in
 if ($tg_user !== false) {
 
+	//add a new car
 	if(isset($_GET['add'])){
 		$brand = $_POST['brand'];
 		$model = $_POST['model'];
@@ -74,6 +76,7 @@ if ($tg_user !== false) {
 	}
 
 	if(isset($_GET['update'])){
+		//update car
 		$car = $_GET['update'];
 		$brand = $_POST['brand'];
 		$model = $_POST['model'];
@@ -90,10 +93,12 @@ if ($tg_user !== false) {
 	
 
 if(isset($_GET['delete'])){
+	//delete a car
 	deleteCall($config->api_url . "cars/" . $_GET['delete']);
 	header('Location: settings.php');
 }
 
+//check if show form to add or edit a car
 if(isset($_GET['new'])){
 	$new = true;
 } elseif(isset($_GET['edit'])){
@@ -102,6 +107,7 @@ if(isset($_GET['new'])){
 	$cardata = json_decode(getCall($config->api_url . "carUsers?transform=1&filter=carID,eq," . $car), true);
 }
 
+//init forms for new and edit car
 if($edit){
 echo '<h1>Edit Car</h1>';
 echo '<form action="?update=' . $car . '" method="POST">';
@@ -110,6 +116,7 @@ echo '<form action="?update=' . $car . '" method="POST">';
 	echo '<form action="?add=1" method="POST">';
 }
 
+//get available car attribztes 
 $brands = json_decode(getCall($config->api_url . "carbrands?transform=1"), true);
 $models = json_decode(getCall($config->api_url . "carmodels?transform=1"), true);
 $colors = json_decode(getCall($config->api_url . "colors?transform=1"), true);
@@ -117,6 +124,7 @@ $colors = json_decode(getCall($config->api_url . "colors?transform=1"), true);
 
 
 ?>
+<!-- new car / edit car form -->
 <div class="form-group">
   
   <label for="brand">Brand</label><a href="dataedit.php?brand=1"><i class="fa fa-plus-circle righticon" aria-hidden="true"></i></a>
@@ -239,10 +247,11 @@ echo '<select class="form-control" name="brand" disabled>';
   <button type="submit" class="btn btn-success">Submit</button>
 
 </form>
-
+<!-- end of form -->
 <?php
 
 } else {
+	// user is not logged in 
 	echo '
 	<div class="alert alert-danger" role="alert">
 	<strong>Error.</strong> You need to login first

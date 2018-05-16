@@ -1,5 +1,17 @@
 <?php
-
+/**
+ * Check if current user is in IR;-DB
+ * 
+ * This functions checks if a telegram user is recorded in the IRM-DB.
+ * 
+ * @param string $telegramID Telegram ID from a user to check
+ * @return bool true if IRM user, false if not
+ *
+ * @author Jonas Hüsser
+ *
+ *
+ * @since 0.1
+ */
 
 function checkIrmUser($telegramID){
 	global $config;
@@ -28,7 +40,19 @@ function checkIrmUser($telegramID){
 
 }
 
-
+/**
+ * Save $_SESSION array
+ * 
+ * This functions saves all important session values
+ * 
+ * @param  $tg_user array telegram user data provided by telegram login widget
+ * @return void
+ *
+ * @author Jonas Hüsser
+ *
+ *
+ * @since 0.1
+ */
 function saveSessionArray($tg_user){
 	global $config;
 	$irmarray = json_decode(getCall($config->api_url . "userStation?transform=1&filter=telegramID,eq," . $tg_user['id']),true);	
