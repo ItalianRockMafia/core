@@ -1,6 +1,11 @@
 <?php
 session_start();
 
+if(file_exists(".maintenance")){
+	require_once("maintenance.php");
+	die();
+}
+
 require 'global/functions/telegram.php';
 require 'global/functions/apicalls.php';
 $config = require "config.php";
