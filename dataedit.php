@@ -58,8 +58,9 @@ $config = require "config.php";
 
 $tg_user = getTelegramUserData();
 
+//check if user is logged in
 if ($tg_user !== false) {
-
+	//get attribute to add and add it
 	if(isset($_GET['addbrand'])){
 		$brand = $_POST['brand'];
 		$postfields = "{\"brand\": \"$brand\"}";
@@ -82,6 +83,7 @@ if ($tg_user !== false) {
 	}
 
 
+	//get attribute user wants to add and display correspodenting form
 if(isset($_GET['brand'])){
 	?>
 <form method="POST" action="?addbrand=1">
@@ -120,6 +122,7 @@ if(isset($_GET['color'])){
 
 
 } else {
+	//user is not logged in
 	echo '
 	<div class="alert alert-danger" role="alert">
 	<strong>Error.</strong> You need to <a href="login.php>login</a> first

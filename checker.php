@@ -59,10 +59,13 @@ $config = require "config.php";
 
 $tg_user = getTelegramUserData();
 
+//check if user is logged in
 if ($tg_user !== false) {
 
+	//get my user info
 	$users = json_decode(getCall($config->api_url . "users?transform=1&filter=telegramID,eq," . $tg_user["id"]),true);
 
+	//user is not a IRM user
 	if(empty($users["users"])){
 		$postfields = '{
 			"telegramID": "' . $tg_user["id"] . '",
@@ -70,7 +73,9 @@ if ($tg_user !== false) {
 			"firstname": "' . $tg_user["first_name"] . '",
 			"lastname": "' . $tg_user["last_name"] . '"
 		}';
+		//register user in IRM DB
 		$register = postCall($config->api_url . "users/", $postfields);
+		//show result
 		if($register !== null){
 			echo "User " . $tg_user["username"] . " with ID " . $tg_user["id"] . " registered as IRM-User " . $register;
 		} else {
@@ -78,7 +83,7 @@ if ($tg_user !== false) {
 		}
 
 	}
-
+	//user is already an irm user
 	foreach($users["users"] as $user){
 		if($tg_user["id"] == $user["telegramID"]){
 			echo "Already registred.";
@@ -87,7 +92,7 @@ if ($tg_user !== false) {
 	}
 
 
-
+//show user info
 	$first_name = htmlspecialchars($tg_user['first_name']);
 	$last_name = htmlspecialchars($tg_user['last_name']);
 	if (isset($tg_user['username'])) {
@@ -104,6 +109,7 @@ if ($tg_user !== false) {
 
 } 
 if($tg_user == false) {
+	//user is not logged in
 	$html = 'You need to <a href="login.php">login</a> first.';
 }
 echo $html;
