@@ -62,6 +62,8 @@ function saveSessionArray($tg_user){
 	$_SESSION['station'] = $irm_user['station'];
 	$_SESSION['public_transport'] = $irm_user['public_transport'];
 	}
+	$detailarray =  json_decode(getCall($config->api_url . "users/" . $_SESSION['irmID']),true);
+	$_SESSION['access'] = $detailarray['accessIDFK'];	
 	$_SESSION['username'] = $tg_user['username'];
 	$_SESSION['firstname'] = $tg_user['first_name'];
 	$_SESSION['lastname'] = $tg_user['last_name'];
