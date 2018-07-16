@@ -1,11 +1,9 @@
 -- phpMyAdmin SQL Dump
--- version 4.7.7
 -- https://www.phpmyadmin.net/
 --
-
--- Erstellungszeit: 16. Mai 2018 um 10:52
+-- Erstellungszeit: 16. Jul 2018 um 10:46
 -- Server-Version: 10.1.33-MariaDB
--- PHP-Version: 5.6.34
+-- PHP-Version: 5.6.35
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET AUTOCOMMIT = 0;
@@ -21,6 +19,17 @@ SET time_zone = "+00:00";
 --
 -- Datenbank: `husserjo_italianrockmafia`
 --
+
+-- --------------------------------------------------------
+
+--
+-- Tabellenstruktur für Tabelle `access`
+--
+
+CREATE TABLE `access` (
+  `accessID` int(11) NOT NULL,
+  `access` varchar(255) COLLATE utf8_unicode_ci NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 -- --------------------------------------------------------
 
@@ -265,6 +274,17 @@ CREATE TABLE `eventUsers` (
 -- --------------------------------------------------------
 
 --
+-- Tabellenstruktur für Tabelle `records`
+--
+
+CREATE TABLE `records` (
+  `recordID` int(11) NOT NULL,
+  `recordType` varchar(255) COLLATE utf8_unicode_ci NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+-- --------------------------------------------------------
+
+--
 -- Tabellenstruktur für Tabelle `stations`
 --
 
@@ -284,6 +304,7 @@ CREATE TABLE `userAlbums` (
 ,`album_title` varchar(255)
 ,`mbid` varchar(255)
 ,`artist` varchar(255)
+,`recordType` varchar(255)
 ,`telegramID` int(11)
 ,`tgusername` varchar(80)
 );
@@ -331,7 +352,8 @@ CREATE TABLE `userGoEventWithCar` (
 CREATE TABLE `userHasAlbum` (
   `useralbumID` int(11) NOT NULL,
   `userIDFK` int(11) NOT NULL,
-  `albumIDFK` int(11) NOT NULL
+  `albumIDFK` int(11) NOT NULL,
+  `recordIDFK` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 -- --------------------------------------------------------
@@ -348,7 +370,7 @@ CREATE TABLE `users` (
   `lastname` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
   `public_transport` tinyint(1) NOT NULL,
   `bsc` tinyint(1) NOT NULL,
-  `accessIDFK` int(11) NOT NULL,
+  `accessIDFK` int(11) NOT NULL DEFAULT '2',
   `stationIDFK` int(11) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
@@ -411,7 +433,7 @@ CREATE ALGORITHM=UNDEFINED DEFINER=`hpid_88225`@`10.0.24.%` SQL SECURITY DEFINER
 --
 DROP TABLE IF EXISTS `userAlbums`;
 
-CREATE ALGORITHM=UNDEFINED DEFINER=`hpid_88225`@`10.0.24.%` SQL SECURITY DEFINER VIEW `userAlbums`  AS  select `userHasAlbum`.`useralbumID` AS `useralbumID`,`albums`.`album_title` AS `album_title`,`albums`.`mbid` AS `mbid`,`artists`.`artist` AS `artist`,`users`.`telegramID` AS `telegramID`,`users`.`tgusername` AS `tgusername` from (((`users` left join `userHasAlbum` on((`userHasAlbum`.`userIDFK` = `users`.`userID`))) left join `albums` on((`userHasAlbum`.`albumIDFK` = `albums`.`albumID`))) left join `artists` on((`albums`.`artistIDFK` = `artists`.`artistID`))) where (`userHasAlbum`.`useralbumID` <> 'NULL') ;
+CREATE ALGORITHM=UNDEFINED DEFINER=`husserjo`@`10.0.24.%` SQL SECURITY DEFINER VIEW `userAlbums`  AS  select `userHasAlbum`.`useralbumID` AS `useralbumID`,`albums`.`album_title` AS `album_title`,`albums`.`mbid` AS `mbid`,`artists`.`artist` AS `artist`,`records`.`recordType` AS `recordType`,`users`.`telegramID` AS `telegramID`,`users`.`tgusername` AS `tgusername` from ((((`albums` left join `userHasAlbum` on((`userHasAlbum`.`albumIDFK` = `albums`.`albumID`))) left join `users` on((`userHasAlbum`.`userIDFK` = `users`.`userID`))) left join `records` on((`userHasAlbum`.`recordIDFK` = `records`.`recordID`))) left join `artists` on((`albums`.`artistIDFK` = `artists`.`artistID`))) where (`userHasAlbum`.`useralbumID` <> 'NULL') ;
 
 -- --------------------------------------------------------
 
@@ -443,6 +465,13 @@ CREATE ALGORITHM=UNDEFINED DEFINER=`hpid_88225`@`10.0.24.%` SQL SECURITY DEFINER
 --
 -- Indizes der exportierten Tabellen
 --
+
+--
+-- Indizes für die Tabelle `access`
+--
+ALTER TABLE `access`
+  ADD PRIMARY KEY (`accessID`),
+  ADD UNIQUE KEY `access` (`access`);
 
 --
 -- Indizes für die Tabelle `albums`
@@ -564,6 +593,13 @@ ALTER TABLE `events`
   ADD KEY `userIDFK` (`userIDFK`);
 
 --
+-- Indizes für die Tabelle `records`
+--
+ALTER TABLE `records`
+  ADD PRIMARY KEY (`recordID`),
+  ADD UNIQUE KEY `recordType` (`recordType`);
+
+--
 -- Indizes für die Tabelle `stations`
 --
 ALTER TABLE `stations`
@@ -576,7 +612,8 @@ ALTER TABLE `stations`
 ALTER TABLE `userHasAlbum`
   ADD PRIMARY KEY (`useralbumID`),
   ADD KEY `user` (`userIDFK`),
-  ADD KEY `album` (`albumIDFK`);
+  ADD KEY `album` (`albumIDFK`),
+  ADD KEY `redordType` (`recordIDFK`);
 
 --
 -- Indizes für die Tabelle `users`
@@ -593,106 +630,118 @@ ALTER TABLE `users`
 --
 
 --
+-- AUTO_INCREMENT für Tabelle `access`
+--
+ALTER TABLE `access`
+  MODIFY `accessID` int(11) NOT NULL AUTO_INCREMENT;
+
+--
 -- AUTO_INCREMENT für Tabelle `albums`
 --
 ALTER TABLE `albums`
-  MODIFY `albumID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=89;
+  MODIFY `albumID` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT für Tabelle `artistEvent`
 --
 ALTER TABLE `artistEvent`
-  MODIFY `actID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
+  MODIFY `actID` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT für Tabelle `artists`
 --
 ALTER TABLE `artists`
-  MODIFY `artistID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=59;
+  MODIFY `artistID` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT für Tabelle `attendes`
 --
 ALTER TABLE `attendes`
-  MODIFY `attendeID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=120;
+  MODIFY `attendeID` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT für Tabelle `carbrands`
 --
 ALTER TABLE `carbrands`
-  MODIFY `brandID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
+  MODIFY `brandID` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT für Tabelle `carmodels`
 --
 ALTER TABLE `carmodels`
-  MODIFY `modelID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+  MODIFY `modelID` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT für Tabelle `cars`
 --
 ALTER TABLE `cars`
-  MODIFY `carID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=24;
+  MODIFY `carID` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT für Tabelle `colors`
 --
 ALTER TABLE `colors`
-  MODIFY `colorID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `colorID` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT für Tabelle `comments`
 --
 ALTER TABLE `comments`
-  MODIFY `commentID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=47;
+  MODIFY `commentID` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT für Tabelle `emp-orders`
 --
 ALTER TABLE `emp-orders`
-  MODIFY `empID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=24;
+  MODIFY `empID` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT für Tabelle `empComments`
 --
 ALTER TABLE `empComments`
-  MODIFY `empCommID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=37;
+  MODIFY `empCommID` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT für Tabelle `eventCarUsers`
 --
 ALTER TABLE `eventCarUsers`
-  MODIFY `comboID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=83;
+  MODIFY `comboID` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT für Tabelle `eventComments`
 --
 ALTER TABLE `eventComments`
-  MODIFY `eventCommentID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+  MODIFY `eventCommentID` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT für Tabelle `events`
 --
 ALTER TABLE `events`
-  MODIFY `eventID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=79;
+  MODIFY `eventID` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT für Tabelle `records`
+--
+ALTER TABLE `records`
+  MODIFY `recordID` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT für Tabelle `stations`
 --
 ALTER TABLE `stations`
-  MODIFY `stationID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=20;
+  MODIFY `stationID` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT für Tabelle `userHasAlbum`
 --
 ALTER TABLE `userHasAlbum`
-  MODIFY `useralbumID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=95;
+  MODIFY `useralbumID` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT für Tabelle `users`
 --
 ALTER TABLE `users`
-  MODIFY `userID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=70;
+  MODIFY `userID` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- Constraints der exportierten Tabellen
@@ -772,13 +821,15 @@ ALTER TABLE `events`
 --
 ALTER TABLE `userHasAlbum`
   ADD CONSTRAINT `userHasAlbum_ibfk_1` FOREIGN KEY (`albumIDFK`) REFERENCES `albums` (`albumID`) ON DELETE CASCADE ON UPDATE CASCADE,
-  ADD CONSTRAINT `userHasAlbum_ibfk_2` FOREIGN KEY (`userIDFK`) REFERENCES `users` (`userID`) ON DELETE CASCADE ON UPDATE CASCADE;
+  ADD CONSTRAINT `userHasAlbum_ibfk_2` FOREIGN KEY (`userIDFK`) REFERENCES `users` (`userID`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `userHasAlbum_ibfk_3` FOREIGN KEY (`recordIDFK`) REFERENCES `records` (`recordID`) ON UPDATE CASCADE;
 
 --
 -- Constraints der Tabelle `users`
 --
 ALTER TABLE `users`
-  ADD CONSTRAINT `users_ibfk_1` FOREIGN KEY (`stationIDFK`) REFERENCES `stations` (`stationID`) ON UPDATE CASCADE;
+  ADD CONSTRAINT `users_ibfk_1` FOREIGN KEY (`stationIDFK`) REFERENCES `stations` (`stationID`) ON UPDATE CASCADE,
+  ADD CONSTRAINT `users_ibfk_2` FOREIGN KEY (`accessIDFK`) REFERENCES `access` (`accessID`) ON UPDATE CASCADE;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
