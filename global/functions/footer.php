@@ -1,6 +1,6 @@
 <?php
 
-function renderFooter($custom_footer){
+function renderFooter($custom_footer = ''){
 	$footer = '</div>
 	</main>
 	'.
