@@ -2,13 +2,13 @@
 session_start();
 
 if(file_exists(".maintenance")){
-	require_once("maintenance.php");
+	require_once_once("maintenance.php");
 	die();
 }
 
-require 'global/functions/telegram.php';
-require 'global/functions/apicalls.php';
-$config = require "config.php";
+require_once 'global/functions/telegram.php';
+require_once 'global/functions/apicalls.php';
+$config = require_once "config.php";
 
 $users = json_decode(getCall($config->api_url . "users?transform=1"), true);
 

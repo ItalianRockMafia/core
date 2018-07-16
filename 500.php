@@ -1,10 +1,10 @@
 <?php
 session_start();
 header($_SERVER['SERVER_PROTOCOL'] . ' 500 Internal Server Error', true, 500);
-$config = require 'config.php';
-require 'global/functions/apicalls.php';
-require 'global/functions/telegram.php';
-require 'global/functions/irm.php';
+$config = require_once 'config.php';
+require_once 'global/functions/apicalls.php';
+require_once 'global/functions/telegram.php';
+require_once 'global/functions/irm.php';
 
 $tg_user = getTelegramUserData();
 saveSessionArray($tg_user);

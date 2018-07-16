@@ -1,10 +1,10 @@
 <?php
 session_start();
-require 'global/functions/header.php';
-require 'global/functions/footer.php';
-require 'global/functions/apicalls.php';
-require 'global/functions/telegram.php';
-$config = require "config.php";
+require_once 'global/functions/header.php';
+require_once 'global/functions/footer.php';
+require_once 'global/functions/apicalls.php';
+require_once 'global/functions/telegram.php';
+$config = require_once "config.php";
 
 $menu = renderMenu();
 $options['nav'] = $menu;

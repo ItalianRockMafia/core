@@ -1,11 +1,11 @@
 <?php
 session_start();
-$config = require 'config.php';
-require 'global/functions/apicalls.php';
-require 'global/functions/telegram.php';
-require 'global/functions/irm.php';
-require 'global/functions/header.php';
-require 'global/functions/footer.php';
+$config = require_once 'config.php';
+require_once 'global/functions/apicalls.php';
+require_once 'global/functions/telegram.php';
+require_once 'global/functions/irm.php';
+require_once 'global/functions/header.php';
+require_once 'global/functions/footer.php';
 
 $tg_user = getTelegramUserData();
 saveSessionArray($tg_user);

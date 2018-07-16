@@ -1,8 +1,8 @@
 <?php
 session_start();
 
-$config = require "config.php";
-require 'global/functions/apicalls.php';
+$config = require_once "config.php";
+require_once 'global/functions/apicalls.php';
 $userID = $_SESSION['irmID'];
 if(isset($_GET['upatestation'])){
 

@@ -39,7 +39,7 @@ if(!isset($_COOKIE['referer'])){
 
 define('BOT_USERNAME', 'irmbot'); // place username of your bot here
 
-require 'global/functions/telegram.php';
+require_once 'global/functions/telegram.php';
 if ($_GET['logout']) {
 	setcookie('tg_user', '');
 	setcookie('referer', '', time() - 3600);

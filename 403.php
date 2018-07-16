@@ -1,10 +1,10 @@
 <?php
 session_start();
 header('HTTP/1.0 403 Forbidden');
-$config = require 'config.php';
-require 'global/functions/apicalls.php';
-require 'global/functions/telegram.php';
-require 'global/functions/irm.php';
+$config = require_once 'config.php';
+require_once 'global/functions/apicalls.php';
+require_once 'global/functions/telegram.php';
+require_once 'global/functions/irm.php';
 
 $tg_user = getTelegramUserData();
 saveSessionArray($tg_user);
