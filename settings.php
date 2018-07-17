@@ -49,8 +49,10 @@ if ($tg_user !== false) {
 
 	saveSessionArray($tg_user);
 	$access = $_SESSION['access'];
-	if($access >= 2){
+	if($access > 2){
 		$a = true;
+	} else {
+		$a = false;
 	}
 
 	$userStations = json_decode(getCall($config->api_url . "userStation?transform=1&filter=telegramID,eq," . $tg_user["id"]),true);
