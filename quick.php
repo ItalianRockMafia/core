@@ -22,4 +22,4 @@ if(isset($_GET['bannew'])){
 	}
 }
 
-// Silence is golden
+echo '< href="' . $config->app_url . '">Home</a>';
