@@ -17,7 +17,7 @@ if(isset($_GET['bannew'])){
 	$putfields= '{"accessIDFK": 1}';
 	$result = putCall($config->api_url . "users/" . $user, $putfields);
 	if(is_numeric($result)){
-		echo "promoted<br>";
+		echo "banned<br>";
 	} else {
 		echo "error<br>";
 	}
