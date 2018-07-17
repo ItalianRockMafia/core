@@ -4,6 +4,8 @@ require_once 'global/functions/apicalls.php';
 require_once 'global/functions/telegram.php';
 require_once 'global/functions/header.php';
 require_once 'global/functions/footer.php';
+require_once 'global/functions/irm.php';
+
 
 $config = require_once "config.php";
 
@@ -45,10 +47,11 @@ if ($tg_user !== false) {
 	$lastname = $tg_user["last_name"];
 	$username = $tg_user["username"];
 
-	$_SESSION['tgID'] = $tg_user["id"];
-	$_SESSION['firstname'] = $tg_user["first_name"];
-	$_SESSION['lastname'] = $tg_user["last_name"];
-	$_SESSION['username'] = $tg_user["username"];
+	saveSessionArray($tg_user);
+	$access = $_SESSION['access'];
+	if($access >= 2){
+		$a = true;
+	}
 
 	$userStations = json_decode(getCall($config->api_url . "userStation?transform=1&filter=telegramID,eq," . $tg_user["id"]),true);
 	$stations =  json_decode(getCall($config->api_url . "stations?transform=1"), true);
@@ -69,6 +72,7 @@ if ($tg_user !== false) {
 		$_SESSION['irmID'] = $userStation['userID'];
 		$myacc = json_decode(getCall($config->api_url . "users/" .$_SESSION['irmID'] . "?transform=1"), true);
 		
+		if($a){
 ?>
 <div class="topspacer"></div>
 <h3>EMP</h3>
@@ -83,6 +87,7 @@ if ($tg_user !== false) {
 
 	</form>
 	<div class="topspacer"></div>
+		<?php } ?>
 
 <h3>Select your station</h3>
 <form method="POST" action="stationmgmt.php?upatestation=1" class="form-inline">
@@ -129,6 +134,7 @@ if ($tg_user !== false) {
 
 <?php
 	}
+	if($a){
 ?>
 <div class="topspacer"></div>
 <h3>Your cars <a href="car.php?new=1"><i class="fa fa-plus-circle righticon" aria-hidden="true"></i></a></h3>
@@ -158,7 +164,7 @@ if(empty($mycars['carUsers'])){
 	echo '<div class="alert alert-warning" role="alert">
   You have no cars. register a <a href="car.php?new=1">new one</a>
 </div>';
-}
+}}
 ?>
 </div>
 <?php

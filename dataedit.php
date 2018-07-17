@@ -4,6 +4,8 @@ require_once 'global/functions/header.php';
 require_once 'global/functions/footer.php';
 require_once 'global/functions/apicalls.php';
 require_once 'global/functions/telegram.php';
+require_once 'global/functions/irm.php';
+
 $config = require_once "config.php";
 
 $menu = renderMenu();
@@ -23,6 +25,10 @@ echo $header;
 
 
 $tg_user = getTelegramUserData();
+saveSessionArray($tg_user);
+if($_SESSION['access'] >= 3){
+
+
 
 //check if user is logged in
 if ($tg_user !== false) {
@@ -86,7 +92,13 @@ if(isset($_GET['color'])){
 <?php
 }
 
-
+} else {
+	echo '
+	<div class="alert alert-warning" role="alert">
+	<strong>Warning.</strong> Guest access is disabled
+  </div>
+';
+}
 } else {
 	//user is not logged in
 	echo '

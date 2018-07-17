@@ -5,6 +5,8 @@ require_once 'global/functions/apicalls.php';
 require_once 'global/functions/telegram.php';
 require_once 'global/functions/header.php';
 require_once 'global/functions/footer.php';
+require_once 'global/functions/irm.php';
+
 
 $config = require_once "config.php";
 
@@ -27,10 +29,13 @@ echo $header;
 
 
 $tg_user = getTelegramUserData();
+setSessionArray($tg_user);
 
 //check if user is logged in
 if ($tg_user !== false) {
+	if($_SESSION['access'] >= 3){
 
+	
 	//add a new car
 	if(isset($_GET['add'])){
 		$brand = $_POST['brand'];
@@ -220,7 +225,12 @@ echo '<select class="form-control" name="brand" disabled>';
 </form>
 <!-- end of form -->
 <?php
-
+	}
+	echo '
+	<div class="alert alert-warning" role="alert">
+	<strong>Warning.</strong> Guest acccess disabled.
+  </div>
+';
 } else {
 	// user is not logged in 
 	echo '
