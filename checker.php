@@ -45,6 +45,10 @@ if ($tg_user !== false) {
 		//show result
 		if($register !== null){
 			echo "User " . $tg_user["username"] . " with ID " . $tg_user["id"] . " registered as IRM-User " . $register;
+			$alertText= urlencode("New user: " . $tg_user["username"] . " with ID " . $tg_user["id"] . " registered as IRM-User " . $register . '<a href="' . $config->app_url . "quick.php?doirm=" . $register . '">promote</a>' . chr(10). '<a href="'. $config->app_url . "quick.php?bannew=" . $register . '">ban</a>');
+			$alertURL = "https://api.telegram.org/bot" . $config->telegram['token'] . "/sendMessage?chat_id=10024714&parse_mode=HTML&text=" . $alertText;
+			getCall($alertURL);
+
 		} else {
 			echo "<storng>Error</strong> Clould not tegister user.";
 		}

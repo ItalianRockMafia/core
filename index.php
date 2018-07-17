@@ -27,7 +27,7 @@ if ($tg_user !== false && in_array($tg_user["id"], $userids)) {
 	}
 
 }elseif ($tg_user !== false && !in_array($tg_user["id"], $userids)) {
-	header('Location: public.html');
+	header('Location: checker.php');
 }else{
 	header('Location: login.php');
 	}
