@@ -29,11 +29,11 @@ echo $header;
 
 
 $tg_user = getTelegramUserData();
-setSessionArray($tg_user);
+saveSessionArray($tg_user);
 
 //check if user is logged in
 if ($tg_user !== false) {
-	if($_SESSION['access'] >= 3){
+	if($_SESSION['access'] >= 2){
 
 	
 	//add a new car
@@ -48,6 +48,10 @@ if ($tg_user !== false) {
 		$car = postcall($config->api_url . "cars", $postfields);
 		if(is_numeric($car)){
 			header('Location: settings.php');
+		} else{
+			die('<div class="alert alert-danger" role="alert">
+			<strong>Error.</strong> Error saving car to database
+		  </div>' . $footer);
 		}
 	}
 
@@ -64,6 +68,10 @@ if ($tg_user !== false) {
 		$status = putCall($config->api_url . "cars/" . $car, $postfields);
 		if(is_numeric($status)){
 			header('Location: settings.php');
+		} else{
+			die('<div class="alert alert-danger" role="alert">
+			<strong>Error.</strong> Error saving changes to database
+		  </div>' . $footer);
 		}
 	}
 	
@@ -225,12 +233,13 @@ echo '<select class="form-control" name="brand" disabled>';
 </form>
 <!-- end of form -->
 <?php
-	}
+	} else {
 	echo '
 	<div class="alert alert-warning" role="alert">
-	<strong>Warning.</strong> Guest acccess disabled.
+	<strong>Warning.</strong>  acccess disabled.
   </div>
 ';
+	}
 } else {
 	// user is not logged in 
 	echo '

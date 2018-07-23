@@ -136,7 +136,7 @@ if ($tg_user !== false) {
 
 <?php
 	}
-	if($a){
+
 ?>
 <div class="topspacer"></div>
 <h3>Your cars <a href="car.php?new=1"><i class="fa fa-plus-circle righticon" aria-hidden="true"></i></a></h3>
@@ -166,7 +166,7 @@ if(empty($mycars['carUsers'])){
 	echo '<div class="alert alert-warning" role="alert">
   You have no cars. register a <a href="car.php?new=1">new one</a>
 </div>';
-}}
+}
 ?>
 </div>
 <?php

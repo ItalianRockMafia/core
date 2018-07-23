@@ -26,7 +26,7 @@ echo $header;
 
 $tg_user = getTelegramUserData();
 saveSessionArray($tg_user);
-if($_SESSION['access'] >= 3){
+if($_SESSION['access'] >= 2){
 
 
 

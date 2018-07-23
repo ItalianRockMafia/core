@@ -23,4 +23,15 @@ if(isset($_GET['bannew'])){
 	}
 }
 
+if(isset($_GET['doguest'])){
+	$user = $_GET['doguest'];
+	$putfields= '{"accessIDFK": 2}';
+	$result = putCall($config->api_url . "users/" . $user, $putfields);
+	if(is_numeric($result)){
+		echo "Guest<br>";
+	} else {
+		echo "error<br>";
+	}
+}
+
 echo '<a href="' . $config->app_url . '">Home</a>';
