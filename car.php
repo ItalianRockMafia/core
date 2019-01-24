@@ -1,64 +1,42 @@
 <?php
 session_start();
+
+require_once 'global/functions/apicalls.php';
+require_once 'global/functions/telegram.php';
+require_once 'global/functions/header.php';
+require_once 'global/functions/footer.php';
+require_once 'global/functions/irm.php';
+
+
+$config = require_once "config.php";
+
+$menu = renderMenu();
+$options['nav'] = $menu;
+$options['title'] = "IRM | Modify car";
+$header = getHeader($options);
+$footer = renderFooter();
+echo $header;
+
+
 ?>
-<!doctype html>
-<html>
-	<head>
-		<meta charset="utf-8">
- 	   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-			<link rel="stylesheet" href="global/main.css">
-		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
-		<script src="https://use.fontawesome.com/c414fc2c21.js"></script>
-		<title>IRM - Settings</title>
-	</head>
-	<body>
 
-
-	<nav class="navbar navbar-expand-lg navbar-dark bg-danger">
-	<a class="navbar-brand" href="#">ItalianRockMafia</a>
-	  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-		<span class="navbar-toggler-icon"></span>
-	  </button>
-	<div class="collapse navbar-collapse" id="navbarSupportedContent">
-		<ul class="navbar-nav mr-auto">
-		<li class="nav-item">
-        				<a class="nav-link" href="main.php">Home</a>
-      				</li>
-			  <li class="nav-item active">
-				<a class="nav-link" href="settings.php">Settings <span class="sr-only">(current)</span></a>
-			  </li>
-				<li class="nav-item">
-        	<a class="nav-link" href="<?php echo $config->app_url; ?>meetup">Events</a>
-      	</li>
-		  <li class="nav-item">
-        				<a class="nav-link" href="https://italianrockmafia.ch/emp">EMP</a>
-      				</li>
-		  <li class="nav-item">
-        				<a class="nav-link" href="https://italianrockmafia.ch/vinyl">Vinyls</a>
-      				</li>
-				</ul>
-				<ul class="nav navbar-nav navbar-right">
-				<li class="nav-item">
-        			<a class="nav-link" href="login.php?logout=1">Logout</a>
-      			</li>
-		</ul>
-	</div>
-</nav>
 <div class="topspacer"></div>
 <main role="main">
 	<div class="container">
 
 <?php
 
-require 'global/functions/apicalls.php';
-require 'global/functions/telegram.php';
-$config = require "config.php";
 
 
 $tg_user = getTelegramUserData();
+saveSessionArray($tg_user);
 
+//check if user is logged in
 if ($tg_user !== false) {
+	if($_SESSION['access'] >= 2){
 
+	
+	//add a new car
 	if(isset($_GET['add'])){
 		$brand = $_POST['brand'];
 		$model = $_POST['model'];
@@ -70,10 +48,15 @@ if ($tg_user !== false) {
 		$car = postcall($config->api_url . "cars", $postfields);
 		if(is_numeric($car)){
 			header('Location: settings.php');
+		} else{
+			die('<div class="alert alert-danger" role="alert">
+			<strong>Error.</strong> Error saving car to database
+		  </div>' . $footer);
 		}
 	}
 
 	if(isset($_GET['update'])){
+		//update car
 		$car = $_GET['update'];
 		$brand = $_POST['brand'];
 		$model = $_POST['model'];
@@ -85,15 +68,21 @@ if ($tg_user !== false) {
 		$status = putCall($config->api_url . "cars/" . $car, $postfields);
 		if(is_numeric($status)){
 			header('Location: settings.php');
+		} else{
+			die('<div class="alert alert-danger" role="alert">
+			<strong>Error.</strong> Error saving changes to database
+		  </div>' . $footer);
 		}
 	}
 	
 
 if(isset($_GET['delete'])){
+	//delete a car
 	deleteCall($config->api_url . "cars/" . $_GET['delete']);
 	header('Location: settings.php');
 }
 
+//check if show form to add or edit a car
 if(isset($_GET['new'])){
 	$new = true;
 } elseif(isset($_GET['edit'])){
@@ -102,6 +91,7 @@ if(isset($_GET['new'])){
 	$cardata = json_decode(getCall($config->api_url . "carUsers?transform=1&filter=carID,eq," . $car), true);
 }
 
+//init forms for new and edit car
 if($edit){
 echo '<h1>Edit Car</h1>';
 echo '<form action="?update=' . $car . '" method="POST">';
@@ -110,6 +100,7 @@ echo '<form action="?update=' . $car . '" method="POST">';
 	echo '<form action="?add=1" method="POST">';
 }
 
+//get available car attribztes 
 $brands = json_decode(getCall($config->api_url . "carbrands?transform=1"), true);
 $models = json_decode(getCall($config->api_url . "carmodels?transform=1"), true);
 $colors = json_decode(getCall($config->api_url . "colors?transform=1"), true);
@@ -117,6 +108,7 @@ $colors = json_decode(getCall($config->api_url . "colors?transform=1"), true);
 
 
 ?>
+<!-- new car / edit car form -->
 <div class="form-group">
   
   <label for="brand">Brand</label><a href="dataedit.php?brand=1"><i class="fa fa-plus-circle righticon" aria-hidden="true"></i></a>
@@ -239,21 +231,23 @@ echo '<select class="form-control" name="brand" disabled>';
   <button type="submit" class="btn btn-success">Submit</button>
 
 </form>
-
+<!-- end of form -->
 <?php
-
+	} else {
+	echo '
+	<div class="alert alert-warning" role="alert">
+	<strong>Warning.</strong>  acccess disabled.
+  </div>
+';
+	}
 } else {
+	// user is not logged in 
 	echo '
 	<div class="alert alert-danger" role="alert">
 	<strong>Error.</strong> You need to login first
   </div>
 ';
 }
+echo $footer;
 ?>
-			</div>
-			</main>
-			<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
-			<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
-			<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
-				</body>
-			</html>
+		

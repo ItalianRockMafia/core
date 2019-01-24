@@ -1,8 +1,14 @@
 # IRM-core
-Dies ist der Grundstein des IRM Backends. Durchgeführt wird hier das Login, die Registration in der IRM DB, sowie Benutztereinstellungen und Logout.
+This is the core of the IRM-Backend. It handles login, registration and settings. 
 
-# Login
-Öffne die [Login Seite](https://italianrockmafia.ch/login.php). Dort kannst du dich via des "Login mit Telegram" Buttons anmelden. Als nächstes musst du die Handynummer, mit welcher du bei Telegram registriert bist, angeben. Telegram schickt dir dann eine Narchricht, in der du das Login bestätigen musst.
-![IRM Login](https://italianrockmafia.ch/assets/images/irm-login.PNG)
-![IRM Login](https://italianrockmafia.ch/assets/images/tg-register.PNG)
-![IRM Login](https://italianrockmafia.ch/assets/images/tg-approve.PNG)
+# Benutzerdokumentation (german)
+Die Dokumentation für die Benutzer finden sich im [Wiki](https://github.com/ItalianRockMafia/core/wiki)
+
+# Dependencies
+ - [PHP-CRUD-API](https://github.com/mevdschee/php-crud-api)
+ - [Telegram Login Widget](https://core.telegram.org/widgets/login)
+ - 
+
+# Installation
+Clone the repo and upload all php files to your www root. Import the `database.sql` file in your MySQL-Database. Setup PHP-CRUD-API and a telegram bot for the Telegram Login Widget (all linked above). After that, rename `config-sample.php` to `config.php` and fill in your options. Your application is now ready to use.
+
