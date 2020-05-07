@@ -3,6 +3,11 @@ session_start();
 
 $config = require_once('config.php');
 
+if(isset($_GET['r'])){
+  $redirect_url = $_GET['r'];
+  unset($_GET['r']);
+}
+
 function checkTelegramAuthorization($auth_data) {
   global $config;
   $check_hash = $auth_data['hash'];
@@ -38,8 +43,8 @@ try {
   die ($e->getMessage());
 }
 
-if(isset($_GET['r'])){
-  header('Locatiion: ' . $_GET['r']);
+if(isset($redirect_url)){
+  header('Locatiion: ' . $redirect_url);
 } else {
   header('Location: login.php');
 }
