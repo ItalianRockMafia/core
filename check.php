@@ -45,5 +45,5 @@ try {
 }
 
   header('Location: login.php');
-}
+
 ?>
