@@ -2,7 +2,6 @@
 session_start();
 if(!isset($_COOKIE['referer'])){
 	setcookie('referer', $_SERVER['HTTP_REFERER']);
-	echo $_COOKIE['referer'];
 }
 ?>
 <!doctype html>

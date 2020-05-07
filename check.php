@@ -5,6 +5,7 @@ $config = require_once('config.php');
 
 if(isset($_GET['r'])){
   $redirect_url = $_GET['r'];
+  setcookie('referer', $redirect_url);
   unset($_GET['r']);
 }
 
@@ -43,9 +44,6 @@ try {
   die ($e->getMessage());
 }
 
-if(isset($redirect_url)){
-  header('Locatiion: ' . $redirect_url);
-} else {
   header('Location: login.php');
 }
 ?>
