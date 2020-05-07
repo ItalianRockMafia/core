@@ -38,6 +38,9 @@ try {
   die ($e->getMessage());
 }
 
-header('Location: login.php');
-
+if(isset($_GET['r'])){
+  header('Locatiion: ' . $_GET['r']);
+} else {
+  header('Location: login.php');
+}
 ?>
