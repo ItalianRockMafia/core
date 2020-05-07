@@ -1,10 +1,10 @@
 <?php
 session_start();
 
-
-define('BOT_TOKEN', '179948695:AAH29JDaVbI7vfB13F_6ty-6gUGtjnaKgL8'); // place bot token of your bot here
+$config = require_once('config.php');
 
 function checkTelegramAuthorization($auth_data) {
+  global $config;
   $check_hash = $auth_data['hash'];
   unset($auth_data['hash']);
   $data_check_arr = [];
@@ -14,7 +14,7 @@ function checkTelegramAuthorization($auth_data) {
   }
   sort($data_check_arr);
   $data_check_string = implode("\n", $data_check_arr);
-  $secret_key = hash('sha256', BOT_TOKEN, true);
+  $secret_key = hash('sha256', $config->telegram['token'], true);
   $hash = hash_hmac('sha256', $data_check_string, $secret_key);
   if (strcmp($hash, $check_hash) !== 0) {
     throw new Exception('Data is NOT from Telegram');
